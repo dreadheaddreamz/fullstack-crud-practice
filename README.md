@@ -17,7 +17,7 @@ This project was built as a learning exercise to strengthen full-stack developme
 **Backend**
 - Ruby on Rails (API mode)
 - ActiveRecord
-- SQLite (development database)
+- Postgres (development database)
 
 **Frontend**
 - JavaScript (ES6)
