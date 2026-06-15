@@ -1,24 +1,60 @@
-# README
+# Ticket Tracker (Rails + JavaScript)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple full-stack ticket tracking application built to practice CRUD operations, API design, and frontend-backend integration using Ruby on Rails and vanilla JavaScript.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 📌 Overview
 
-* System dependencies
+This project allows users to create and view support-style tickets. Each ticket includes a title, description, and status. The frontend communicates with a Rails backend API to fetch and display ticket data dynamically.
 
-* Configuration
+This project was built as a learning exercise to strengthen full-stack development fundamentals.
 
-* Database creation
+---
 
-* Database initialization
+## 🛠️ Tech Stack
 
-* How to run the test suite
+**Backend**
+- Ruby on Rails (API mode)
+- ActiveRecord
+- SQLite (development database)
 
-* Services (job queues, cache servers, search engines, etc.)
+**Frontend**
+- JavaScript (ES6)
+- Fetch API
+- HTML/CSS (basic UI rendering)
 
-* Deployment instructions
+---
 
-* ...
+## ⚙️ Features
+
+- Create new tickets
+- View a list of all tickets
+- Track ticket status:
+  - Open
+  - In Progress
+  - Closed
+- RESTful API integration between frontend and backend
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint       | Description            |
+|--------|----------------|------------------------|
+| GET    | /tickets       | Fetch all tickets      |
+| POST   | /tickets       | Create a new ticket    |
+
+---
+
+## 📦 Example Ticket Object
+
+```json
+{
+  "id": 1,
+  "title": "Bug fix",
+  "description": "Fix login issue",
+  "status": "in_progress",
+  "created_at": "2026-06-15T20:58:30Z",
+  "updated_at": "2026-06-15T20:58:30Z"
+}
