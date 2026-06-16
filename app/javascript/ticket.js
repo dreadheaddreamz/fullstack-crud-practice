@@ -1,49 +1,71 @@
-const API_URL = "http://localhost:3000/api/v1/tickets";
+console.log("JS LOADED");
 
-// Load all tickets on page load
 document.addEventListener("DOMContentLoaded", () => {
   loadTickets();
 
-  const form = document.getElementById("ticketForm");
-  if (form) {
-    form.addEventListener("submit", createTicket);
-  }
+  document
+    .getElementById("ticketForm")
+    .addEventListener("submit", createTicket);
+
+  document
+    .getElementById("statusFilter")
+    .addEventListener("change", loadTickets);
 });
 
-// GET /api/v1/tickets
+
+// ------------------------
+// LOAD / FETCH TICKETS
+// ------------------------
 async function loadTickets() {
   try {
-    const response = await fetch(API_URL);
+    const status = document.getElementById("statusFilter").value;
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch tickets");
-    }
+    let url = "/api/v1/tickets";
+    if (status) url += `?status=${status}`;
 
+    const response = await fetch(url);
     const tickets = await response.json();
 
-    const container = document.getElementById("ticketsList");
-    container.innerHTML = "";
-
-    tickets.forEach(ticket => {
-      const div = document.createElement("div");
-      div.classList.add("ticket");
-
-      div.innerHTML = `
-        <h3>${ticket.title}</h3>
-        <p>${ticket.description}</p>
-        <p>Status: ${ticket.status}</p>
-        <hr />
-      `;
-
-      container.appendChild(div);
-    });
-
+    renderTickets(tickets);
   } catch (err) {
     console.error("Error loading tickets:", err);
   }
 }
 
-// POST /api/v1/tickets
+
+// ------------------------
+// RENDER TICKETS
+// ------------------------
+function renderTickets(tickets) {
+  const container = document.getElementById("ticketsList");
+
+  container.innerHTML = "";
+
+  if (tickets.length === 0) {
+    container.innerHTML = "<p>No tickets found.</p>";
+    return;
+  }
+
+  tickets.forEach(ticket => {
+    const div = document.createElement("div");
+    div.style.border = "1px solid #ccc";
+    div.style.padding = "10px";
+    div.style.margin = "10px 0";
+
+    div.innerHTML = `
+      <h3>${ticket.title}</h3>
+      <p>${ticket.description || ""}</p>
+      <p><strong>Status:</strong> ${ticket.status}</p>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+
+// ------------------------
+// CREATE TICKET (POST)
+// ------------------------
 async function createTicket(e) {
   e.preventDefault();
 
@@ -52,7 +74,7 @@ async function createTicket(e) {
   const status = document.getElementById("status").value;
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch("http://localhost:3000/api/v1/tickets", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -67,17 +89,11 @@ async function createTicket(e) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Server error:", errorData);
       throw new Error("Failed to create ticket");
     }
 
-    // reset form
     document.getElementById("ticketForm").reset();
-
-    // refresh list
     loadTickets();
-
   } catch (err) {
     console.error("Error creating ticket:", err);
   }

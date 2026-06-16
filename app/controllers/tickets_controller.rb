@@ -1,17 +1,20 @@
 class TicketsController < ApplicationController
-  def index_page
-  render json: Ticket.all
-end
+  def index
+    @tickets = Ticket.all
+  end
 
-def create
-  ticket = Ticket.create!(ticket_params)
-  render json: ticket
-end
+   def show
+    @ticket = Ticket.find(params[:id])
+  end
 
-private
+  def create
+    ticket = Ticket.create!(ticket_params)
+    render json: ticket
+  end
 
-def ticket_params
-  params.require(:ticket).permit(:title, :description, :status)
-end
+  private
 
+  def ticket_params
+    params.require(:ticket).permit(:title, :description, :status)
+  end
 end

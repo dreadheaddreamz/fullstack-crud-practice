@@ -1,41 +1,28 @@
-<div id="ticketsContainer">
 <h1>Ticket Tracker</h1>
 
 <form id="ticketForm">
-  <div>
-    <label>Title</label>
-    <input type="text" id="title" required>
-  </div>
+  <input id="title" placeholder="Title" />
+  <br>
 
-  <div>
-    <label>Description</label>
-    <textarea id="description"></textarea>
-  </div>
+  <textarea id="description" placeholder="Description"></textarea>
+  <br>
 
-  <div>
-    <label>Status</label>
-    <select id="status">
-      <option value="open">Open</option>
-      <option value="in_progress">In Progress</option>
-      <option value="closed">Closed</option>
-    </select>
-  </div>
+  <select id="status">
+    <option value="open">Open</option>
+    <option value="in_progress">In Progress</option>
+    <option value="closed">Closed</option>
+  </select>
 
   <button type="submit">Create Ticket</button>
 </form>
 
 <hr>
 
-<div>
-  <label>Filter by Status</label>
-  <select id="statusFilter">
-    <option value="">All</option>
-    <option value="open">Open</option>
-    <option value="in_progress">In Progress</option>
-    <option value="closed">Closed</option>
-  </select>
-</div>
+<select id="statusFilter">
+  <option value="">All</option>
+  <option value="open">Open</option>
+  <option value="in_progress">In Progress</option>
+  <option value="closed">Closed</option>
+</select>
 
-<hr>
-  <div id="ticketsList">
-</div>
+<div id="ticketsList"></div>

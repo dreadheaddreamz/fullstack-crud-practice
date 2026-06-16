@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  get "tickets/index_page"
+  resources :tickets
+
   namespace :api do
-    namespace :v1 do
-      resources :tickets
-    end
+    resources :tickets
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
